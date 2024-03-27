@@ -7,28 +7,31 @@ export class TasksController {
   constructor(private readonly tasksService: TasksService) { }
   jobId:string;
   @HttpCode(HttpStatus.OK)
-  @Post('task')
-  async HandleTasks(@Body() body: any) {
-    // await this.tasksService.HandleTasks(body);
-    // return body;
-    const response = await this.tasksService.HandleTasks(body);
-    console.log("🚀 ~ TasksController ~ HandleTasks ~ response:", response)
-    return {'response generated is ':response};
+  @Post('task1')
+  async HandleTask1(@Body() body: any) {
+    const response = await this.tasksService.HandleTask1(body);
+    console.log("🚀 ~Task1 Controller ~ response:", response)
+    return {'response generated TASK1 ':response};
+  }
+  @Post('task2')
+  async HandleTask2(@Body() body: any) {
+    const response = await this.tasksService.HandleTask2(body);
+    console.log("🚀 ~ Task2 Controller ~ response:", response)
+    return {'response generated TASK2 ':response};
   }
 
   @Get('check')
-  async findAll() {
-    return this.tasksService.findAll();
+  async Check() {
+    return this.tasksService.Check();
   }
 
   @Get('stop/:id')
-  async findOne(@Param('id') id: number) {
+  async StopJob(@Param('id') id: number) {
     const response= await this.tasksService.StopJob(id);
     return {'response generated is ':response};
   }
 
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.tasksService.remove(+id);
-  // }
+  
+
+
 }
