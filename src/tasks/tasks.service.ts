@@ -8,11 +8,10 @@ import { TaskConsumer } from './task.consumer';
 @Injectable()
 export class TasksService {
   constructor(@InjectQueue('handle-bg-tasks')
-  private task_queue: Queue) { }
 
+  private task_queue: Queue) { }
   async HandleTask1(task: any) {
     console.log("🚀 task1:", task)
-    // const job = await this.task_queue.add('handle-task1', { number: task }, { removeOnComplete: true, removeOnFail: true })
     const job = await this.task_queue.add('handle-task1', { number: task })
     console.log("🚀 jobId : job.id-------1--------:", job.id)
     return { message: 'Processing the request 1. . . ', jobId: job.id }
@@ -24,7 +23,6 @@ export class TasksService {
     console.log("🚀 jobId : job.id----------2-----------:", job.id)
     return { message: 'Processing the request 2. . . ', jobId: job.id }
   }
-
   async Check() {
     console.log("This is check API")
     return 'CHECK API WORKING ....'

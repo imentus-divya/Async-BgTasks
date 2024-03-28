@@ -6,11 +6,11 @@ import { Job } from "bull";
 @Processor('handle-bg-tasks')
 export class TaskConsumer {
     constructor() { }
-
+    private count=1;
     // @Process('generate-report-job')
     @Process('handle-task1')
     async generateTask1method(job: Job<unknown>) {
-        console.log('````````````````job 1 recieved at consumer is , : ', job.data, 'Will take 60 seconds ``````````````````')
+        console.log('````````````````job recieved at consumer is , : ', job.data, 'Will take 10 seconds ``````````````````')
     let product=1;
        
         const printStatement = async(job:Job):Promise<any>=>{
@@ -20,12 +20,13 @@ export class TaskConsumer {
             await job.update({Recieved_Data : Number , Processed_Data :product})
             await job.progress({ step: 'completed . . .', percentage: 100 });
             await job.finished();
-            console.log("🚀 ~ Task1 completed . . .")
+            console.log("🚀 ~ Task completed . . . ......and count is : ",this.count)
+            this.count++;
         }
 
         setTimeout(() => {
             printStatement(job);
-        }, 60000);
+        }, 10000);
 
         console.log('task1 processing .....');
     }
